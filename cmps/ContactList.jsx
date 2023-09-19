@@ -2,7 +2,7 @@ import { ContactPreview } from "./ContactPreview.jsx";
 
 export function ContactList({contacts, onSelectContactId}){
 
- console.log('testttttttttttttttttttttttttttt')
+ console.log('testttttttttttttttttttttttt')
     return (
         <ul className="contacts-list">
             {contacts && contacts.length > 0 && contacts.map(contact => {
