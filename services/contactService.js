@@ -12,7 +12,6 @@ export const contactsService = {
     remove,
     save,
 }
-console.log('hi')
 function query() {
     return asyncStorageService.query(STORAGE_KEY).then(contacts => {
         console.log('contacts', contacts)
