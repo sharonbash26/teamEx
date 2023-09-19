@@ -1,10 +1,10 @@
-import { contactService } from "../../services/contactService.js"
+import { contactsService } from "../../services/contactService.js"
 import { ADD_CONTACT, REMOVE_CONTACT, SET_CONTACTS, UPDATE_CONTACT } from "../reducers/contact.reducer.js"
 
 import { store } from "../store.js";
 
 export function loadContacts(filterBy) {
-    return contactService.query(filterBy)
+    return contactsService.query(filterBy)
         .then(contacts => {
             store.dispatch({ type: SET_CONTACTS, contacts })
         })
@@ -15,7 +15,7 @@ export function loadContacts(filterBy) {
 }
 
 export function removeContact(contactId) {
-    return contactService.removeContact(contactId)
+    return contactsService.remove(contactId)
         .then(() => {
             store.dispatch({ type: REMOVE_CONTACT, contactId })
         })
@@ -27,7 +27,7 @@ export function removeContact(contactId) {
 
 export function saveContact(contact) {
     const type = contact._id ? UPDATE_CONTACT : ADD_CONTACT
-    return contactService.save(contact)
+    return contactsService.save(contact)
         .then(savedContact => {
             store.dispatch({ type, contact: savedContact })
             return savedContact
@@ -36,6 +36,4 @@ export function saveContact(contact) {
             console.error('Cannot save contact:', err)
             throw err
         })
-
-
 }
