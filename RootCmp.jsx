@@ -4,6 +4,7 @@ const Router = ReactRouterDOM.HashRouter
 import { AppHeader } from "./cmps/AppHeader.jsx"
 import { About } from "./views/About.jsx"
 import { Home } from "./views/Home.jsx"
+import { ContactDetails } from "./pages/ContactDetails.jsx"
 
 
 
@@ -14,6 +15,7 @@ export function App() {
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/about" element={<About />} />
+                <Route path="/contact/:id" element={<ContactDetails />} />
             </Routes>
         </section>
     </Router>
