@@ -1,7 +1,9 @@
 
 const { useState, useEffect } = React
-const { useParams, useNavigate } = ReactRouterDOM
-import { contactService } from '../services/contactService.js'
+const { useParams, useNavigate, Link } = ReactRouterDOM
+import { contactsService } from '../services/contactService.js'
+
+import { removeContact } from '../store/actions/contact.actions.js'
 
 export function ContactDetails() {
     const params = useParams()
@@ -11,8 +13,9 @@ export function ContactDetails() {
 
     useEffect(() => {
         const { id } = params
-        contactService.get(id)
+        contactsService.get(id)
             .then(contact => {
+                console.log(contact);
                 if (!contact) return navigate('/contact')
                 setCurrContact(contact)
             })
@@ -20,6 +23,18 @@ export function ContactDetails() {
                 console.log('Had issues loading contact')
             })
     }, [])
+
+    function onRemove() {
+        const { id } = params
+        removeContact(id)
+            .then(() => {
+                console.log('contact removed');
+            })
+            .catch(err => {
+                console.error('Cannot remove contact:', err)
+            })
+    }
+
 
     if (!currContact) return <h4>loading...</h4>
     const { _id, firstName, lastName, mail, desc, phone } = currContact
@@ -35,6 +50,8 @@ export function ContactDetails() {
                 <button className="back-btn" onClick={() => navigate('/contact')}>
                     Back to contacts
                 </button>
+                <button onClick={() => { onRemove(), navigate('/contact') }}>x</button>
+                <button><Link to={`/contact/edit/${params.id}`} >Edit</Link></button>
             </div>
         </div>
     )

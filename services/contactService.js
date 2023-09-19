@@ -11,6 +11,7 @@ export const contactsService = {
     get,
     remove,
     save,
+    getEmptyContact,
 }
 console.log('hi')
 function query() {
@@ -28,6 +29,7 @@ function get(contactId) {
 
 
 function remove(contactId) {
+    console.log('contactId', contactId)
     return asyncStorageService.remove(STORAGE_KEY, contactId)
 }
 
@@ -40,6 +42,10 @@ function save(contact) {
     }
 }
 
+function getEmptyContact(firstName = '', lastName = '', phone = '', desc = '', mail = '') {
+    return { _id: '', firstName, lastName, phone, desc, mail }
+}
+
 
 function _createContacts() {
     console.log('start create contacts')
@@ -48,22 +54,23 @@ function _createContacts() {
         contacts = [{
             id: utilService.makeId(),
             firstName: 'sharon',
-            lastName:'bash',
-            phone:'0528979145',
-            desc:'hhhh',
+            lastName: 'bash',
+            phone: '0528979145',
+            desc: 'hhhh',
             mail: 'sharon26mo@gmail.com'
         },
         {
             id: utilService.makeId(),
             firstName: 'avishai',
-            lastName:'cohen',
-            mail:'avishaic2016@gmail.com',
-            desc:'ggg',
-            phone:'052897978'
+            lastName: 'cohen',
+            mail: 'avishaic2016@gmail.com',
+            desc: 'ggg',
+            phone: '052897978'
         }
         ]
+        console.log('contacts', contacts)
     }
-    utilService.saveToStorage(STORAGE_KEY, contacts)
+    storageService.saveToStorage(STORAGE_KEY, contacts)
     console.log('all todos', contacts)
     return contacts
 }
