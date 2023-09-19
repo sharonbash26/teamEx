@@ -3,7 +3,7 @@ const { useState, useEffect } = React
 const { useParams, useNavigate } = ReactRouterDOM
 import { contactService } from '../services/contactService.js'
 
-export function ContactDetails() {
+export function ContactDetails({contacts,onBack}) {
     const params = useParams()
     const navigate = useNavigate()
 
