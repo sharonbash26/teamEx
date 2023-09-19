@@ -13,6 +13,7 @@ export function ContactEdit() {
 
     useEffect(() => {
         console.log('params.contactId', params.id);
+        console.log('hi');
         if (params.id) loadContact()
     }, [])
 
